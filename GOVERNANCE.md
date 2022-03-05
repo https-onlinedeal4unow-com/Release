@@ -149,8 +149,6 @@ After the nominee's first prepared release has been promoted the new releaser mu
 * Be added to the GitHub [security-release team](https://github.com/orgs/nodejs/teams/security-release) in the Node.js and nodejs-private orgs
 * Have a single, high quality SSH key added to the "dist" user on the primary www server (see below for guidelines regarding SSH key quality)
 * Have a GPG key added to the nodejs/node [README.md](https://github.com/nodejs/node/#release-team)
-  * The key should be cherry-picked to all active release branches.
-  * Any future updates to the key should also be cherry-picked to all active release branches.
 * Open a PR in [nodejs/docker-node](https://github.com/nodejs/docker-node/) to add gpg key to [node.keys](https://github.com/nodejs/docker-node/blob/master/keys/node.keys)
 
 New releasers should wait at least 2 weeks after adding a GPG key to the
@@ -176,12 +174,7 @@ ssh-keygen -t rsa -b 4096 -o -a 100 -N ''
 ```
 
 By default, the resulting private key will be placed in `~/.ssh/id_rsa` and
-public key in `~/.ssh/id_rsa.pub`. You can write the key to a Node namespace with
-the `-f` flag:
-
-```
-ssh-keygen -t rsa -b 4096 -o -a 100 -N '' -f ~/.ssh/node_id_rsa
-```
+public key in `~/.ssh/id_rsa.pub`.
 
 Ed25519 is an elliptic curve DSA algorithm that offers similar complexity to
 RSA at 4096 bits but is significantly smaller in file size. It is not supported
@@ -200,19 +193,3 @@ placed on the www server for access to the "dist" user. The private key should
 be kept very secure and not shared with anyone. Any actual or suspected
 compromise of the private key should be reported immediately and the key should
 be entirely removed from use.
-
-## Offboarding releasers
-
-*Note*: This section is specifically concerning removing members from the [@nodejs/releasers](https://github.com/orgs/nodejs/teams/releasers) team, not removing members from the overall Release WG.
-
-Releasers have access to critical infrastructure in the project - this elevated access must be restricted to active releasers. Members of the releasers team should be offboarded when they no longer intend to prepare releases. As a guideline, offboarding should be considered if a releaser has not prepared a release in the past 12 months.
-
-The following steps should be taken as part of the offboarding process:
-* Be removed from the GitHub [releasers team](https://github.com/orgs/nodejs/teams/releasers) in the Node.js organizations.
-* Be removed from the GitHub [security-release team](https://github.com/orgs/nodejs/teams/security-release) in the Node.js and nodejs-private organizations.
-* Ensure their SSH key is removed from the `dist` user on the primary www server.
-* Move their GPG key in nodejs/node [README.md](https://github.com/nodejs/node/#release-keys) to the 'Other keys used to sign some previous releases' section.
-* Open a PR in [nodejs/docker-node](https://github.com/nodejs/docker-node/) to remove their GPG key from [node.keys](https://github.com/nodejs/docker-node/blob/master/keys/node.keys).
-* Ensure they are moved to 'Emeritus - Releasers team' in the nodejs/release [README](https://github.com/nodejs/Release/blob/master/README.md).
-
-Releasers are not automatically removed from the wider Release WG.
